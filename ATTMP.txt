@@ -1,0 +1,65 @@
+package sample1se;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class mp {
+
+	public static void main(String[] args) {
+		
+
+		        // Set Chrome options to enable experimental feature for voice input
+		        ChromeOptions options = new ChromeOptions();
+		        options.addArguments("--enable-speech-input");
+
+		        // Initialize WebDriver
+		        WebDriver driver = new ChromeDriver(options);
+
+		        // Navigate to Google
+		        driver.get("https://www.google.com");
+
+		        // Find the voice search button
+		        WebElement voiceSearchButton = driver.findElement(By.xpath("//div[@aria-label='Search by voice']"));
+
+		        // Click the voice search button to activate microphone
+		        voiceSearchButton.click();
+
+		        // Wait for the microphone to be activated
+		        try {
+		            Thread.sleep(2000); // Adjust the delay as needed
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+
+		        // Simulate voice input by typing into the search box
+		        WebElement searchBox = driver.findElement(By.name("q"));
+		        searchBox.sendKeys("Hello, this is a voice-based search test");
+
+		        // Submit the search query
+		        searchBox.submit();
+
+		        // Wait for search results to load
+		        try {
+		            Thread.sleep(5000); // Adjust the delay as needed
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+
+		        // Verify search results
+		        String title = driver.getTitle();
+		        if (title.contains("Google Search Results")) {
+		            System.out.println("Voice-based search test passed!");
+		        } else {
+		            System.out.println("Voice-based search test failed!");
+		        }
+
+		        // Close the browser
+		        driver.quit();
+		    }
+		
+
+
+	}
